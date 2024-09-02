@@ -22,7 +22,7 @@ const HeadingNav: NextPage<HeadingNavProps> = ({}) => {
     },
   ];
   return (
-    <div className="w-full bg-blue-400 flex flex-col lg:flex-row justify-between items-center text-white px-2 lg:px-24 py-3">
+    <div className="w-full max-w-screen bg-blue-400 flex flex-col lg:flex-row justify-between items-center text-white px-2 lg:px-24 py-3">
       <div className="flex flex-row gap-3">
         <div className="flex flex-row justify-center items-center gap-4">
           <GrDeliver />
