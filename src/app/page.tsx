@@ -8,30 +8,33 @@ import "react-multi-carousel/lib/styles.css";
 // Icons
 import { AiFillApple } from "react-icons/ai";
 import { IoFastFood } from "react-icons/io5";
-import { FaTshirt } from "react-icons/fa";
-import { BiCategory } from "react-icons/bi";
+import { FaTshirt, FaGlasses } from "react-icons/fa";
+import { GiLargeDress } from "react-icons/gi";
+// Anything
+import Link from "next/link";
 
-// card
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import CardLayout from "./components/CardLayout";
+import ChildCard from "./components/ChildCard";
+import CardProduct from "./components/CardProduct";
+
 export default function Home() {
   const slider = [
     {
-      src: "https://picsum.photos/seed/picsum/200/300",
-      alt: "gs",
+      src: "/img/banner3.jpg",
+      alt: "Banner 1",
     },
     {
-      src: "https://picsum.photos/seed/picsum/200/300",
-      alt: "gc",
+      src: "/img/banner3.jpg",
+      alt: "Banner 2",
     },
     {
-      src: "https://picsum.photos/seed/picsum/200/300",
-      alt: "a",
+      src: "/img/banner3.jpg",
+      alt: "Banner 3",
     },
   ];
 
   const responsive = {
     superLargeDesktop: {
-      // the naming can be any, depends on you.
       breakpoint: { max: 4000, min: 3000 },
       items: 1,
     },
@@ -66,24 +69,24 @@ export default function Home() {
     },
     {
       id: 3,
-      name: "Clothes ",
-      description: "Clothes Casual ",
+      name: "Man Clothes ",
+      description: "Clothes Casual For Man ",
       link: "Foods",
       icon: <FaTshirt className="text-3xl text-blue-400" />,
     },
     {
       id: 4,
-      name: "Clothes ",
-      description: "Clothes Casual ",
+      name: "Woman Clothes ",
+      description: "Clothes Casual For Woman",
       link: "Foods",
-      icon: <FaTshirt className="text-3xl text-blue-400" />,
+      icon: <GiLargeDress className="text-3xl text-blue-400" />,
     },
     {
       id: 5,
-      name: "Clothes ",
-      description: "Clothes Casual ",
+      name: "Accessories ",
+      description: " Accessories For People ",
       link: "Foods",
-      icon: <FaTshirt className="text-3xl text-blue-400" />,
+      icon: <FaGlasses className="text-3xl text-blue-400" />,
     },
   ];
   return (
@@ -91,56 +94,28 @@ export default function Home() {
       <HeadingNav />
       <MyNavbar />
       {/* Carousel */}
-      <Carousel responsive={responsive} className="h-[400px]">
+      <Carousel infinite={true} autoPlay={true} customTransition="transform 0.5s ease-in-out" transitionDuration={300} arrows={false} responsive={responsive} className="h-[400px] w-full">
         {slider.map((item) => (
           <div key={item.alt}>
-            <img className="w-full object-cover" src={item.src} alt={item.alt} />
+            <Image quality={100} width={500} height={400} style={{ objectFit: "cover", width: "100% " }} className="w-full object-cover object-center" src={item.src} alt={item.alt} />
           </div>
         ))}
       </Carousel>
 
-      <div className="w-full px-32 py-12">
-        <Card>
-          <CardHeader>
-            <CardTitle>Best Category</CardTitle>
-            <CardDescription className="text-xs">Best Category of NoitrX Commerce</CardDescription>
-          </CardHeader>
-          <CardContent className="flex flex-row gap-4 justify-center items-center ">
-            <div className="flex flex-row gap-4 cursor-pointer ">
-              {categories.map((item) => (
-                <Card key={item.id}>
-                  <CardHeader>
-                    <CardTitle className="text-center">{item.name}</CardTitle>
-                    <CardDescription className="text-center text-xs">{item.description}</CardDescription>
-                  </CardHeader>
-                  <CardContent className="flex justify-center items-center">{item.icon}</CardContent>
-                </Card>
-              ))}
-            </div>
-          </CardContent>
-          <CardFooter className="flex flex-row justify-center items-center gap-6">
-            <div className="px-8 py-2 gap-3 flex justify-center items-center border border-blue-400 rounded-md cursor-pointer hover:bg-blue-700 hover:text-white transition-all duration-150">
-              <BiCategory className="text-blue-400" />
-              <p className="text-xs text-blue-400">Categories</p>
-            </div>
+      <CardLayout headingTitle="CATEGORIES">
+        {categories.map((item) => (
+          <ChildCard key={item.id} link={item.link} id={item.id} icon={item.icon} name={item.name} description={item.description} />
+        ))}
+      </CardLayout>
 
-            <div className="px-8 py-2 gap-3 flex justify-center items-center border border-blue-400 rounded-md cursor-pointer hover:bg-blue-700 hover:text-white transition-all duration-150">
-              <BiCategory className="text-blue-400" />
-              <p className="text-xs text-blue-400">Eletronics</p>
-            </div>
+      {/*Component Card For Information  */}
+      <div className="w-full max-w-screen bg-blue-400 h-32"></div>
 
-            <div className="px-8 py-2 gap-3 flex justify-center items-center border border-blue-400 rounded-md cursor-pointer hover:bg-blue-700 hover:text-white transition-all duration-150">
-              <BiCategory className="text-blue-400" />
-              <p className="text-xs text-blue-400">Fashion</p>
-            </div>
+      {/* Product */}
 
-            <div className="px-8 py-2 gap-3 flex justify-center items-center border border-blue-400 rounded-md cursor-pointer hover:bg-blue-700 hover:text-white transition-all duration-150">
-              <BiCategory className="text-blue-400" />
-              <p className="text-xs text-blue-400">Food</p>
-            </div>
-          </CardFooter>
-        </Card>
-      </div>
+      <CardLayout headingTitle="RECOMENDATION PRODUCT">
+        <CardProduct link="/6475.jpg" name="Kemeja Flanel Kece Pria Korean Style" label="TERMURAH" price={100000} src="/img/" />
+      </CardLayout>
     </div>
   );
 }
